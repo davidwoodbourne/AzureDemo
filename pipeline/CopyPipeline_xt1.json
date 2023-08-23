@@ -77,7 +77,8 @@
 									"name": "Column3",
 									"type": "String"
 								}
-							}
+							},
+							null
 						],
 						"typeConversion": true,
 						"typeConversionSettings": {
