@@ -1,0 +1,9 @@
+{
+	"name": "DataFactoryInstanceDavid",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "115791e0-b02b-4ece-a400-b7053e6142bd",
+		"tenantId": "09bacfbd-47ef-4465-9265-3546f2eaf6bc"
+	}
+}
