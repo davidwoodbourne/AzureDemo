@@ -38,9 +38,11 @@
 							{
 								"source": {
 									"name": "VendorID"
+								},
+								"sink": {
+									"name": "Col1"
 								}
-							},
-							null
+							}
 						],
 						"typeConversion": true,
 						"typeConversionSettings": {
