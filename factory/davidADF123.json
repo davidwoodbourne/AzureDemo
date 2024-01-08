@@ -1,0 +1,15 @@
+{
+	"name": "davidADF123",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "5c66b02b-e5bf-40aa-882f-8bebeaecd119",
+		"tenantId": "09bacfbd-47ef-4465-9265-3546f2eaf6bc",
+		"userAssignedIdentities": {
+			"/subscriptions/0db90bcc-a43d-42ff-b6d1-3380b70225ab/resourcegroups/DavidResourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/userAssignedIdenty": {
+				"clientId": "a3a3d617-e3d9-4847-ae97-92ba0b096e06",
+				"principalId": "0c51597b-2d31-4afe-b4f3-c960356b570e"
+			}
+		}
+	}
+}

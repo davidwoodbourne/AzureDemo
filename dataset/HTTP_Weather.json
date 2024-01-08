@@ -1,0 +1,126 @@
+{
+	"name": "HTTP_Weather",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"latitude": {
+					"type": "number"
+				},
+				"longitude": {
+					"type": "number"
+				},
+				"generationtime_ms": {
+					"type": "number"
+				},
+				"utc_offset_seconds": {
+					"type": "integer"
+				},
+				"timezone": {
+					"type": "string"
+				},
+				"timezone_abbreviation": {
+					"type": "string"
+				},
+				"elevation": {
+					"type": "number"
+				},
+				"hourly_units": {
+					"type": "object",
+					"properties": {
+						"time": {
+							"type": "string"
+						},
+						"temperature_2m": {
+							"type": "string"
+						}
+					}
+				},
+				"hourly": {
+					"type": "object",
+					"properties": {
+						"time": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"temperature_2m": {
+							"type": "array",
+							"items": {
+								"type": "number"
+							}
+						}
+					}
+				},
+				"daily_units": {
+					"type": "object",
+					"properties": {
+						"time": {
+							"type": "string"
+						},
+						"temperature_2m_max": {
+							"type": "string"
+						},
+						"temperature_2m_min": {
+							"type": "string"
+						},
+						"sunrise": {
+							"type": "string"
+						},
+						"sunset": {
+							"type": "string"
+						}
+					}
+				},
+				"daily": {
+					"type": "object",
+					"properties": {
+						"time": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"temperature_2m_max": {
+							"type": "array",
+							"items": {
+								"type": "number"
+							}
+						},
+						"temperature_2m_min": {
+							"type": "array",
+							"items": {
+								"type": "number"
+							}
+						},
+						"sunrise": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"sunset": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,238 @@
+{
+	"name": "Weather_Copy_HTTP_ADLS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_dmp",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Destination",
+						"value": "files/apiData/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['latitude']"
+								},
+								"sink": {
+									"name": "latitude"
+								}
+							},
+							{
+								"source": {
+									"path": "$['longitude']"
+								},
+								"sink": {
+									"name": "longitude"
+								}
+							},
+							{
+								"source": {
+									"path": "$['generationtime_ms']"
+								},
+								"sink": {
+									"name": "generationtime_ms"
+								}
+							},
+							{
+								"source": {
+									"path": "$['utc_offset_seconds']"
+								},
+								"sink": {
+									"name": "utc_offset_seconds"
+								}
+							},
+							{
+								"source": {
+									"path": "$['timezone']"
+								},
+								"sink": {
+									"name": "timezone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['timezone_abbreviation']"
+								},
+								"sink": {
+									"name": "timezone_abbreviation"
+								}
+							},
+							{
+								"source": {
+									"path": "$['elevation']"
+								},
+								"sink": {
+									"name": "elevation"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hourly_units']['time']"
+								},
+								"sink": {
+									"name": "hourly_units_time"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hourly_units']['temperature_2m']"
+								},
+								"sink": {
+									"name": "temperature_2m"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hourly']['time'][0]"
+								},
+								"sink": {
+									"name": "hourly_time']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['hourly']['temperature_2m'][0]"
+								},
+								"sink": {
+									"name": "hourly_temperature_2m']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily_units']['time']"
+								},
+								"sink": {
+									"name": "daily_units_time"
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily_units']['temperature_2m_max']"
+								},
+								"sink": {
+									"name": "temperature_2m_max"
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily_units']['temperature_2m_min']"
+								},
+								"sink": {
+									"name": "temperature_2m_min"
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily_units']['sunrise']"
+								},
+								"sink": {
+									"name": "sunrise"
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily_units']['sunset']"
+								},
+								"sink": {
+									"name": "sunset"
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily']['time'][0]"
+								},
+								"sink": {
+									"name": "daily_time']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily']['temperature_2m_max'][0]"
+								},
+								"sink": {
+									"name": "daily_temperature_2m_max']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily']['temperature_2m_min'][0]"
+								},
+								"sink": {
+									"name": "daily_temperature_2m_min']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily']['sunrise'][0]"
+								},
+								"sink": {
+									"name": "daily_sunrise']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['daily']['sunset'][0]"
+								},
+								"sink": {
+									"name": "daily_sunset']["
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "HTTP_Weather",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_Weather",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-01-08T15:20:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

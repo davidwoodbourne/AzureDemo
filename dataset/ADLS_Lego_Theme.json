@@ -1,0 +1,22 @@
+{
+	"name": "ADLS_Lego_Theme",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DavidAzureDataLakeConnection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "themes.parquet",
+				"folderPath": "Lego",
+				"fileSystem": "files"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

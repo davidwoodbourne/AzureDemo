@@ -1,0 +1,117 @@
+{
+	"name": "SQLDB_Weather",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [
+			"annotion test"
+		],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "latitude",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 4
+			},
+			{
+				"name": "longitude",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 4
+			},
+			{
+				"name": "generationtime_ms",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 4
+			},
+			{
+				"name": "utc_offset_seconds",
+				"type": "varchar"
+			},
+			{
+				"name": "timezone",
+				"type": "varchar"
+			},
+			{
+				"name": "timezone_abbreviation",
+				"type": "varchar"
+			},
+			{
+				"name": "elevation",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "hourly_units_time",
+				"type": "varchar"
+			},
+			{
+				"name": "temperature_2m",
+				"type": "varchar"
+			},
+			{
+				"name": "hourly_time",
+				"type": "varchar"
+			},
+			{
+				"name": "hourly_temperature_2m",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 4
+			},
+			{
+				"name": "daily_units_time",
+				"type": "varchar"
+			},
+			{
+				"name": "temperature_2m_max",
+				"type": "varchar"
+			},
+			{
+				"name": "temperature_2m_min",
+				"type": "varchar"
+			},
+			{
+				"name": "sunrise",
+				"type": "varchar"
+			},
+			{
+				"name": "sunset",
+				"type": "varchar"
+			},
+			{
+				"name": "daily_time",
+				"type": "varchar"
+			},
+			{
+				"name": "daily_temperature_2m_max",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 4
+			},
+			{
+				"name": "daily_temperature_2m_min",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 4
+			},
+			{
+				"name": "daily_sunrise",
+				"type": "varchar"
+			},
+			{
+				"name": "daily_sunset",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "weather"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

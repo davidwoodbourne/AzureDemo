@@ -1,0 +1,25 @@
+{
+	"name": "ADLS_Weather",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DavidAzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "data_6df13285-e600-4477-bfcf-2b9bb480d754_b4b1641d-9d99-40a8-91f3-e1e4920f76ff.txt",
+				"folderPath": "apiData",
+				"container": "files"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
