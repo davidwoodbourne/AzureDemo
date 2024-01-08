@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "CopyHTTPLego",
+				"name": "Copy_jfe",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
