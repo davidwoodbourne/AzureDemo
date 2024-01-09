@@ -1,5 +1,11 @@
 {
 	"name": "davidADF123",
+	"properties": {
+		"globalConfigurations": {
+			"factoryStagingLSReferenceName": "DavidAzureDataLakeConnection",
+			"factoryStagingLSType": "LinkedServiceReference"
+		}
+	},
 	"location": "uksouth",
 	"identity": {
 		"type": "SystemAssigned,UserAssigned",
