@@ -3,7 +3,8 @@
 	"properties": {
 		"globalConfigurations": {
 			"factoryStagingLSReferenceName": "DavidAzureDataLakeConnection",
-			"factoryStagingLSType": "LinkedServiceReference"
+			"factoryStagingLSType": "LinkedServiceReference",
+			"factoryStagingFolderPath": "files"
 		}
 	},
 	"location": "uksouth",
