@@ -1,0 +1,115 @@
+{
+	"name": "Lego_Copy_GENERIC_PARAMETERISED_HTTP_ADLS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Lego Themes HTTP ADLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "environment",
+						"value": "dev"
+					},
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.FileName}.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "files/Lego/@{pipeline().parameters.FileName}.csv"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 3
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "DavidAzureDataLakeConnection",
+								"type": "LinkedServiceReference"
+							},
+							"path": "files/Lego/errors/@pipeline().parameters.FileName"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "HTTP_Lego_Generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_Lego_Generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"FileName": {
+				"type": "String",
+				"defaultValue": "FileName"
+			}
+		},
+		"folder": {
+			"name": "Lego"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-01-08T15:53:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

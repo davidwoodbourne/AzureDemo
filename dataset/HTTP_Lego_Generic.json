@@ -1,0 +1,40 @@
+{
+	"name": "HTTP_Lego_Generic",
+	"properties": {
+		"description": "Generic parameterised dataset. to be used in a loop for a pipeline to bring across multiple data sets",
+		"linkedServiceName": {
+			"referenceName": "HTTP_Rebrickable",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string",
+				"defaultValue": "FileName"
+			}
+		},
+		"folder": {
+			"name": "Lego"
+		},
+		"annotations": [
+			"lego",
+			"http"
+		],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@{dataset().FileName}.csv.gz",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"compressionCodec": "gzip",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": null
+		},
+		"schema": []
+	}
+}

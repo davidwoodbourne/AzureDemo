@@ -1,0 +1,33 @@
+{
+	"name": "ADLS_Lego_Generic",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DavidAzureDataLakeConnection",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "String",
+				"defaultValue": "FileName"
+			}
+		},
+		"folder": {
+			"name": "Lego"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@{dataset().FileName}.csv",
+					"type": "Expression"
+				},
+				"folderPath": "Lego",
+				"fileSystem": "files"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

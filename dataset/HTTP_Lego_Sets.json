@@ -1,0 +1,31 @@
+{
+	"name": "HTTP_Lego_Sets",
+	"properties": {
+		"description": "get lego sets csv via http",
+		"linkedServiceName": {
+			"referenceName": "HTTP_Rebrickable",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lego"
+		},
+		"annotations": [
+			"lego",
+			"http"
+		],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "sets.csv.gz"
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"compressionCodec": "gzip",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": null
+		},
+		"schema": []
+	}
+}
