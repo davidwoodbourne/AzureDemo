@@ -198,6 +198,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "Weather"
+		},
 		"annotations": [],
 		"lastPublishTime": "2024-01-08T08:16:09Z"
 	},
