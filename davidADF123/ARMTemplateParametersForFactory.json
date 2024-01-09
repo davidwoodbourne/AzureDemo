@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "davidADF123"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"DavidAzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"DavidAzureDataLakeConnection_accountKey": {
+			"value": ""
+		},
+		"HttpServer1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://davidgen2datalake1.dfs.core.windows.net/"
+		},
+		"DavidAzureDataLakeConnection_properties_typeProperties_url": {
+			"value": "https://daviddatagen2lake.dfs.core.windows.net/"
+		},
+		"HTTP_Rebrickable_properties_typeProperties_url": {
+			"value": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=GMT"
+		},
+		"HttpServer1_properties_typeProperties_userName": {
+			"value": "serverAdmin123"
+		}
+	}
+}

@@ -1,0 +1,1244 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "davidADF123"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"DavidAzureDataLakeConnection_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DavidAzureDataLakeConnection'"
+		},
+		"HttpServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'HttpServer1'"
+		},
+		"DavidAzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'DavidAzureBlobStorage1'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://davidgen2datalake1.dfs.core.windows.net/"
+		},
+		"DavidAzureDataLakeConnection_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://daviddatagen2lake.dfs.core.windows.net/"
+		},
+		"HTTP_Rebrickable_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=GMT"
+		},
+		"HttpServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "serverAdmin123"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DavidAzureDataLakeConnection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DavidAzureDataLakeConnection_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('DavidAzureDataLakeConnection_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HTTP_Rebrickable')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HTTP_Rebrickable_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('HttpServer1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('HttpServer1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "UK South",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime2')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS_Lego_Theme')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DavidAzureDataLakeConnection",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Lego"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "themes.parquet",
+						"folderPath": "Lego",
+						"fileSystem": "files"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DavidAzureDataLakeConnection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HTTP_Lego_Theme')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HTTP_Rebrickable",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Lego"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "themes.csv.gz"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"compressionCodec": "gzip",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": null
+				},
+				"schema": [
+					{
+						"name": "4",
+						"type": "String"
+					},
+					{
+						"name": "Expert Builder",
+						"type": "String"
+					},
+					{
+						"name": "1",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HTTP_Rebrickable')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HTTP_Weather')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Weather"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"generationtime_ms": {
+							"type": "number"
+						},
+						"utc_offset_seconds": {
+							"type": "integer"
+						},
+						"timezone": {
+							"type": "string"
+						},
+						"timezone_abbreviation": {
+							"type": "string"
+						},
+						"elevation": {
+							"type": "number"
+						},
+						"hourly_units": {
+							"type": "object",
+							"properties": {
+								"time": {
+									"type": "string"
+								},
+								"temperature_2m": {
+									"type": "string"
+								}
+							}
+						},
+						"hourly": {
+							"type": "object",
+							"properties": {
+								"time": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"temperature_2m": {
+									"type": "array",
+									"items": {
+										"type": "number"
+									}
+								}
+							}
+						},
+						"daily_units": {
+							"type": "object",
+							"properties": {
+								"time": {
+									"type": "string"
+								},
+								"temperature_2m_max": {
+									"type": "string"
+								},
+								"temperature_2m_min": {
+									"type": "string"
+								},
+								"sunrise": {
+									"type": "string"
+								},
+								"sunset": {
+									"type": "string"
+								}
+							}
+						},
+						"daily": {
+							"type": "object",
+							"properties": {
+								"time": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"temperature_2m_max": {
+									"type": "array",
+									"items": {
+										"type": "number"
+									}
+								},
+								"temperature_2m_min": {
+									"type": "array",
+									"items": {
+										"type": "number"
+									}
+								},
+								"sunrise": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"sunset": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQLDB_Weather')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Weather"
+				},
+				"annotations": [
+					"annotion test"
+				],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "latitude",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 4
+					},
+					{
+						"name": "longitude",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 4
+					},
+					{
+						"name": "generationtime_ms",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 4
+					},
+					{
+						"name": "utc_offset_seconds",
+						"type": "varchar"
+					},
+					{
+						"name": "timezone",
+						"type": "varchar"
+					},
+					{
+						"name": "timezone_abbreviation",
+						"type": "varchar"
+					},
+					{
+						"name": "elevation",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "hourly_units_time",
+						"type": "varchar"
+					},
+					{
+						"name": "temperature_2m",
+						"type": "varchar"
+					},
+					{
+						"name": "hourly_time",
+						"type": "varchar"
+					},
+					{
+						"name": "hourly_temperature_2m",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 4
+					},
+					{
+						"name": "daily_units_time",
+						"type": "varchar"
+					},
+					{
+						"name": "temperature_2m_max",
+						"type": "varchar"
+					},
+					{
+						"name": "temperature_2m_min",
+						"type": "varchar"
+					},
+					{
+						"name": "sunrise",
+						"type": "varchar"
+					},
+					{
+						"name": "sunset",
+						"type": "varchar"
+					},
+					{
+						"name": "daily_time",
+						"type": "varchar"
+					},
+					{
+						"name": "daily_temperature_2m_max",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 4
+					},
+					{
+						"name": "daily_temperature_2m_min",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 4
+					},
+					{
+						"name": "daily_sunrise",
+						"type": "varchar"
+					},
+					{
+						"name": "daily_sunset",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "weather"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQL_Lego_Sets')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Lego"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "varchar"
+					},
+					{
+						"name": "Prop_1",
+						"type": "varchar"
+					},
+					{
+						"name": "Prop_2",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prop_3",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prop_4",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prop_5",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Lego_Sets"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQL_Lego_Themes')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Lego"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "varchar"
+					},
+					{
+						"name": "Prop_1",
+						"type": "varchar"
+					},
+					{
+						"name": "Prop_2",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prop_3",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prop_4",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prop_5",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Lego_Themes"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DavidAzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('DavidAzureBlobStorage1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Lego_Copy_themes_HTTP_ADLS')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Lego Themes HTTP ADLS",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "themes.csv.gz"
+							},
+							{
+								"name": "Destination",
+								"value": "files/Lego/themes.parquet"
+							},
+							{
+								"name": "environment",
+								"value": "dev"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 3
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Warning",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "DavidAzureDataLakeConnection",
+										"type": "LinkedServiceReference"
+									},
+									"path": "files/Lego/errors"
+								}
+							},
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "HTTP_Lego_Theme",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLS_Lego_Theme",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Lego"
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-01-08T15:53:49Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/HTTP_Lego_Theme')]",
+				"[concat(variables('factoryId'), '/datasets/ADLS_Lego_Theme')]",
+				"[concat(variables('factoryId'), '/linkedServices/DavidAzureDataLakeConnection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS_Weather')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DavidAzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Weather"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "data_6df13285-e600-4477-bfcf-2b9bb480d754_b4b1641d-9d99-40a8-91f3-e1e4920f76ff.txt",
+						"folderPath": "apiData",
+						"container": "files"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DavidAzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weather_Copy_ADLS_SQLDB')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Warning",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "DavidAzureBlobStorage1",
+										"type": "LinkedServiceReference"
+									},
+									"path": "files"
+								}
+							},
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "latitude",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "latitude",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "longitude",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "longitude",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "generationtime_ms",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "generationtime_ms",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "utc_offset_seconds",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "utc_offset_seconds",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "timezone",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "timezone",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "timezone_abbreviation",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "timezone_abbreviation",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "elevation",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "elevation",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "temperature_2m",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "temperature_2m",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "sunrise",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "sunrise",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "sunset",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "sunset",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ADLS_Weather",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SQLDB_Weather",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Weather"
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-01-08T08:16:09Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ADLS_Weather')]",
+				"[concat(variables('factoryId'), '/datasets/SQLDB_Weather')]",
+				"[concat(variables('factoryId'), '/linkedServices/DavidAzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weather_Copy_HTTP_ADLS')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_dmp",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Destination",
+								"value": "files/apiData/"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "FlattenHierarchy"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['latitude']"
+										},
+										"sink": {
+											"name": "latitude"
+										}
+									},
+									{
+										"source": {
+											"path": "$['longitude']"
+										},
+										"sink": {
+											"name": "longitude"
+										}
+									},
+									{
+										"source": {
+											"path": "$['generationtime_ms']"
+										},
+										"sink": {
+											"name": "generationtime_ms"
+										}
+									},
+									{
+										"source": {
+											"path": "$['utc_offset_seconds']"
+										},
+										"sink": {
+											"name": "utc_offset_seconds"
+										}
+									},
+									{
+										"source": {
+											"path": "$['timezone']"
+										},
+										"sink": {
+											"name": "timezone"
+										}
+									},
+									{
+										"source": {
+											"path": "$['timezone_abbreviation']"
+										},
+										"sink": {
+											"name": "timezone_abbreviation"
+										}
+									},
+									{
+										"source": {
+											"path": "$['elevation']"
+										},
+										"sink": {
+											"name": "elevation"
+										}
+									},
+									{
+										"source": {
+											"path": "$['hourly_units']['time']"
+										},
+										"sink": {
+											"name": "hourly_units_time"
+										}
+									},
+									{
+										"source": {
+											"path": "$['hourly_units']['temperature_2m']"
+										},
+										"sink": {
+											"name": "temperature_2m"
+										}
+									},
+									{
+										"source": {
+											"path": "$['hourly']['time'][0]"
+										},
+										"sink": {
+											"name": "hourly_time']["
+										}
+									},
+									{
+										"source": {
+											"path": "$['hourly']['temperature_2m'][0]"
+										},
+										"sink": {
+											"name": "hourly_temperature_2m']["
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily_units']['time']"
+										},
+										"sink": {
+											"name": "daily_units_time"
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily_units']['temperature_2m_max']"
+										},
+										"sink": {
+											"name": "temperature_2m_max"
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily_units']['temperature_2m_min']"
+										},
+										"sink": {
+											"name": "temperature_2m_min"
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily_units']['sunrise']"
+										},
+										"sink": {
+											"name": "sunrise"
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily_units']['sunset']"
+										},
+										"sink": {
+											"name": "sunset"
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily']['time'][0]"
+										},
+										"sink": {
+											"name": "daily_time']["
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily']['temperature_2m_max'][0]"
+										},
+										"sink": {
+											"name": "daily_temperature_2m_max']["
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily']['temperature_2m_min'][0]"
+										},
+										"sink": {
+											"name": "daily_temperature_2m_min']["
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily']['sunrise'][0]"
+										},
+										"sink": {
+											"name": "daily_sunrise']["
+										}
+									},
+									{
+										"source": {
+											"path": "$['daily']['sunset'][0]"
+										},
+										"sink": {
+											"name": "daily_sunset']["
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "HTTP_Weather",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLS_Weather",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Weather"
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-01-08T15:20:44Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/HTTP_Weather')]",
+				"[concat(variables('factoryId'), '/datasets/ADLS_Weather')]"
+			]
+		}
+	]
+}
