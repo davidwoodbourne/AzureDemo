@@ -5,6 +5,9 @@
 			"referenceName": "HttpServer1",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Weather"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {

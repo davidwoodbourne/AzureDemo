@@ -5,6 +5,9 @@
 			"referenceName": "DavidAzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Weather"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

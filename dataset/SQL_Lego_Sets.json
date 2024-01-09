@@ -1,0 +1,47 @@
+{
+	"name": "SQL_Lego_Sets",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lego"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Prop_0",
+				"type": "varchar"
+			},
+			{
+				"name": "Prop_1",
+				"type": "varchar"
+			},
+			{
+				"name": "Prop_2",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Prop_3",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Prop_4",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Prop_5",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Lego_Sets"
+		}
+	}
+}
