@@ -1,0 +1,24 @@
+{
+	"name": "ADLS_Lego_sets",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DavidAzureDataLakeConnection",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lego"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "sets.parquet",
+				"folderPath": "Lego",
+				"fileSystem": "files"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
