@@ -1,0 +1,27 @@
+{
+	"name": "LegoTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Lego_Copy_GENERIC_PARAMETERISED_HTTP_ADLS",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"FileName": "colors"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2024-01-09T09:47:00",
+				"timeZone": "GMT Standard Time"
+			}
+		}
+	}
+}
