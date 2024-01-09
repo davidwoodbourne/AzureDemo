@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy_jfe",
+				"name": "Copy Lego Themes HTTP ADLS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -87,6 +87,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "Lego"
+		},
 		"annotations": [],
 		"lastPublishTime": "2024-01-08T15:53:49Z"
 	},

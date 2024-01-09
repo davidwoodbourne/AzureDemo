@@ -5,6 +5,9 @@
 			"referenceName": "DavidAzureDataLakeConnection",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Lego"
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
