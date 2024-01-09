@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lego HTTP to ADLS3",
+				"name": "Lego HTTP to ADLS3 5",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
